@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "58373961688",
+    "project_id": "share-book-eacbc",
+    "storage_bucket": "share-book-eacbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58373961688:android:3e31de4a42ea6e29a464ad",
+        "android_client_info": {
+          "package_name": "com.prabeshdroids.sharebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58373961688-rpcfkfb531v18p53urqr392ss0d00iib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcWF0kS3zeLcfKWzBLsEqrgcmrUKQhdjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58373961688-rpcfkfb531v18p53urqr392ss0d00iib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

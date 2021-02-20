@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sharebook/constants/const.dart';
-import 'package:sharebook/screens/login_page.dart';
+import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/screens/login_screen/login_page.dart';
+import 'package:sharebook/utils/init.dart';
 
-void main() {
+void main() async {
+  await AppInit.initialize();
   runApp(MyApp());
 }
 

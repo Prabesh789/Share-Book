@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "58373961688",
-    "project_id": "share-book-eacbc",
-    "storage_bucket": "share-book-eacbc.appspot.com"
+    "project_number": "571366359534",
+    "project_id": "share-book-a1539",
+    "storage_bucket": "share-book-a1539.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:58373961688:android:3e31de4a42ea6e29a464ad",
+        "mobilesdk_app_id": "1:571366359534:android:29c69937c2c799e7140eff",
         "android_client_info": {
           "package_name": "com.prabeshdroids.sharebook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "58373961688-rpcfkfb531v18p53urqr392ss0d00iib.apps.googleusercontent.com",
+          "client_id": "571366359534-ge28khlekr7a0okvv41e572h6cd160br.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcWF0kS3zeLcfKWzBLsEqrgcmrUKQhdjE"
+          "current_key": "AIzaSyBs6f0o22hKrnP0eg7Mcp1mtfRkWeLHxrk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "58373961688-rpcfkfb531v18p53urqr392ss0d00iib.apps.googleusercontent.com",
+              "client_id": "571366359534-ge28khlekr7a0okvv41e572h6cd160br.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

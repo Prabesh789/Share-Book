@@ -3,13 +3,11 @@ class UserModel {
   final String password;
   final String contact;
   final String email;
-  final String verifyId;
 
-  UserModel(
+  UserModel({
     this.password,
     this.fullName,
     this.contact,
     this.email,
-    this.verifyId,
-  );
+  });
 }

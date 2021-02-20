@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sharebook/constants/const.dart';
-import 'package:sharebook/screens/register_page.dart';
+import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/screens/register/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -71,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    SizedBox(height: 8),
                     Container(
                       padding: EdgeInsets.all(8.0),
                       child: userNameTextField(userNameController),

@@ -207,6 +207,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                           ),
                                         ),
                                       );
+                                      Navigator.pop(context);
+                                    } else {
+                                      _scaffoldkey.currentState.showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.teal[200],
+                                          duration: Duration(seconds: 2),
+                                          content: Text(
+                                            "Register Failed ! ",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ),
+                                      );
                                     }
                                   },
                                 ),

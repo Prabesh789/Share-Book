@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sharebook/data/model/status.dart';
 import 'package:sharebook/data/model/user_model.dart';
 
@@ -17,5 +18,13 @@ class ShareBookRepositoryImpl {
     } catch (e) {
       return Status(message: e.toString(), isSuccess: false, data: null);
     }
+  }
+
+  Future<Status> loginUser({UserModel userModel}) async {
+    try {
+      User user = (await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: null, password: null))
+          .user;
+    } catch (e) {}
   }
 }

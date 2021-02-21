@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sharebook/global/componenets/const.dart';
+// import 'package:sharebook/screens/main_dashboard/drawer/user_drawer.dart';
+// import 'package:sharebook/screens/main_dashboard/drawer/user_main_dashboard.dart';
 import 'package:sharebook/screens/register/register_page.dart';
+import 'package:sharebook/user_main_dashboard/user_main_dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -89,7 +92,12 @@ class _LoginPageState extends State<LoginPage> {
                         "Login",
                         style: TextStyle(fontSize: 16),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserMainDashboard()));
+                      },
                     ),
                     GestureDetector(
                       onTap: () {

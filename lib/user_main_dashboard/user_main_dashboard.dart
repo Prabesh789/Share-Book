@@ -87,7 +87,29 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
                       (pi / 6) * val), //this allow to transform the screen
                 child: Scaffold(
                   appBar: AppBar(
-                    title: Text('3D demo'),
+                    backgroundColor: Colors.white,
+                    centerTitle: true,
+                    title: Text(
+                      'Avaiable Books',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      color: Colors.black,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.upload_outlined,
+                          color: Colors.black,
+                          semanticLabel: 'Upload Book',
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
                   body: Center(
                     child: Text('Swipe Right'),

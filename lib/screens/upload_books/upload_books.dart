@@ -1,0 +1,400 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:sharebook/global/componenets/const.dart';
+import 'package:intl/intl.dart';
+
+class UploadBook extends StatefulWidget {
+  @override
+  _UploadBookState createState() => _UploadBookState();
+}
+
+class _UploadBookState extends State<UploadBook> {
+  String uId;
+  @override
+  void initState() {
+    FirebaseAuth.instance.authStateChanges().listen((User user) async {
+      if (user != null) {
+        setState(() {
+          uId = user.uid;
+        });
+      }
+    });
+    super.initState();
+  }
+
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController bookNameController = TextEditingController();
+  final TextEditingController bookDescriptionController =
+      TextEditingController();
+  final TextEditingController bookAddressController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  var selectedType;
+  var shareType;
+  List<String> _bookType = <String>[
+    'Stories',
+    'Novels',
+    'College Books',
+    'Research Papers',
+    'Encyclopedia',
+    'Others'
+  ];
+  List<String> _shareType = <String>['Rent', 'Sale', 'Free', 'Others'];
+
+  String _date;
+
+  Future<Null> _selectDate(BuildContext context) async {
+    DateTime _datePicker = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2030),
+      //
+    );
+
+    if (_datePicker != null) {
+      setState(() {
+        _date = DateFormat('MMM dd,yyyy').format(_datePicker);
+        dateController.text = _date;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Form(
+      key: _formKey,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              color: Colors.black,
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            title: Text(
+              'Upload book Status',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20),
+                // Stack(children: [
+
+                // ],)
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Container(
+                    height: size.height * 0.3 - 20,
+                    width: size.width * 0.4,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 10),
+                          blurRadius: 50,
+                          color: kPrimaryColor.withOpacity(0.10),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text('Upload Book Image'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    height: size.height * 0.5,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 10),
+                          blurRadius: 50,
+                          color: kPrimaryColor.withOpacity(0.10),
+                        ),
+                      ],
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            child: bookNameTextField(bookNameController),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: dateController,
+                              readOnly: true,
+                              onTap: () {
+                                _selectDate(context);
+                              },
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return "Publish date cannot be empty";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.date_range,
+                                  color: Colors.teal[300],
+                                ),
+                                contentPadding: EdgeInsets.all(8),
+                                hintText: (_date.toString()),
+                                labelText: 'Date of published',
+                                labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                                suffix: Image.asset(
+                                  'assets/images/event.gif',
+                                  height: 30,
+                                  width: 30,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.teal,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: DropdownButtonFormField(
+                              items: _bookType
+                                  .map((value) => DropdownMenuItem(
+                                        child: Text(value),
+                                        value: value,
+                                      ))
+                                  .toList(),
+                              onChanged: (selectedBookType) {
+                                if (mounted)
+                                  setState(() {
+                                    selectedType = selectedBookType;
+                                  });
+                              },
+                              value: selectedType,
+                              isExpanded: false,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(8),
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(
+                                      color: Colors.teal,
+                                    )),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.black,
+                                )),
+                                prefixIcon: Icon(
+                                  Icons.insert_emoticon,
+                                  color: Colors.teal[400],
+                                ),
+                                labelText: 'Select Book Type',
+                                labelStyle: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            child: DropdownButtonFormField(
+                              items: _shareType
+                                  .map((value) => DropdownMenuItem(
+                                        child: Text(value),
+                                        value: value,
+                                      ))
+                                  .toList(),
+                              onChanged: (shareBookType) {
+                                if (mounted)
+                                  setState(() {
+                                    shareType = shareBookType;
+                                  });
+                              },
+                              value: shareType,
+                              isExpanded: false,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(8),
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(
+                                      color: Colors.teal,
+                                    )),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.black,
+                                )),
+                                prefixIcon: Icon(
+                                  Icons.share,
+                                  color: Colors.teal[400],
+                                ),
+                                labelText: 'Share Type',
+                                labelStyle: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            child: bookDescriptionTextField(
+                                bookDescriptionController),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(8.0),
+                            child: amountTextField(amountController),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                RaisedButton(
+                  color: Colors.teal[200],
+                  child: Text('Upload'),
+                  onPressed: () {},
+                ),
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget bookNameTextField(TextEditingController bookNameController) {
+  return TextFormField(
+    controller: bookNameController,
+    decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(8),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Colors.teal,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.black12,
+        )),
+        prefixIcon: Icon(
+          Icons.book,
+          color: Colors.teal[300],
+        ),
+        labelText: 'Book Title',
+        labelStyle: TextStyle(
+            color: Colors.black87, fontSize: 16.0, fontWeight: FontWeight.bold),
+        hintText: 'शिरीषको फूल / Siris Ko Phool'),
+    validator: (value) {
+      if (value.isEmpty) {
+        return 'Book Name is Empty';
+      } else {
+        return null;
+      }
+    },
+  );
+}
+
+Widget bookDescriptionTextField(
+    TextEditingController bookDescriptionController) {
+  return TextFormField(
+    maxLines: 5,
+    controller: bookDescriptionController,
+    decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(8),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Colors.teal,
+            )),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.black12,
+        )),
+        prefixIcon: Icon(
+          Icons.description,
+          color: Colors.teal[300],
+        ),
+        labelText: 'Book Description',
+        labelStyle: TextStyle(
+            color: Colors.black87, fontSize: 16.0, fontWeight: FontWeight.bold),
+        hintText: 'शिरीषको फूल / Siris Ko Phool ..........'),
+    validator: (value) {
+      if (value.isEmpty) {
+        return 'Book description is Empty';
+      } else {
+        return null;
+      }
+    },
+  );
+}
+
+Widget amountTextField(TextEditingController amountController) {
+  return TextFormField(
+    controller: amountController,
+    decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(8),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Colors.teal,
+            )),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.black12,
+        )),
+        prefixIcon: Icon(
+          Icons.money,
+          color: Colors.teal[300],
+        ),
+        labelText: 'Amount',
+        labelStyle: TextStyle(
+            color: Colors.black87, fontSize: 16.0, fontWeight: FontWeight.bold),
+        hintText: '100/-'),
+    validator: (value) {
+      if (value.isEmpty) {
+        return 'Price is empty';
+      } else {
+        return null;
+      }
+    },
+  );
+}

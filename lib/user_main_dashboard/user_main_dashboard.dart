@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/screens/upload_books/upload_books.dart';
 
 class UserMainDashboard extends StatefulWidget {
   @override
@@ -85,36 +87,7 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
                   ..setEntry(0, 3, 200 * val)
                   ..rotateY(
                       (pi / 6) * val), //this allow to transform the screen
-                child: Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: Colors.white,
-                    centerTitle: true,
-                    title: Text(
-                      'Avaiable Books',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    leading: IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      color: Colors.black,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    actions: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.upload_outlined,
-                          color: Colors.black,
-                          semanticLabel: 'Upload Book',
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                  body: Center(
-                    child: Text('Swipe Right'),
-                  ),
-                ),
+                child: MainDashboard(),
               ));
             },
           ),
@@ -138,6 +111,86 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
             // },
           )
         ],
+      ),
+    );
+  }
+}
+
+class MainDashboard extends StatefulWidget {
+  @override
+  _MainDashboardState createState() => _MainDashboardState();
+}
+
+class _MainDashboardState extends State<MainDashboard> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text(
+          'Avaiable Books',
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: Colors.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.upload_outlined,
+              color: Colors.black,
+              semanticLabel: 'Upload Book',
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => UploadBook()));
+            },
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 140),
+              child: Image(
+                image: AssetImage('assets/images/birdSwipe.gif'),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+                bottom: 36 + kDefaultPadding,
+              ),
+              height: size.height * 0.2 - 60,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "Hi Plant",
+                    style: Theme.of(context).textTheme.headline5.copyWith(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  Image.asset("assets/images/birdSwipe.gif")
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

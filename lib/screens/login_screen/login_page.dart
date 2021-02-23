@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sharebook/blocs/auth/auth_bloc.dart';
 import 'package:sharebook/data/model/user_model.dart';
 import 'package:sharebook/global/componenets/const.dart';
 // import 'package:sharebook/screens/main_dashboard/drawer/user_drawer.dart';
 // import 'package:sharebook/screens/main_dashboard/drawer/user_main_dashboard.dart';
 import 'package:sharebook/screens/register/register_page.dart';
+import 'package:sharebook/screens/user_main_dashboard/user_main_dashboard.dart';
 import 'package:sharebook/utils/di.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,7 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController userEmailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -26,21 +28,23 @@ class _LoginPageState extends State<LoginPage> {
       cubit: inject<AuthBloc>(),
       listener: (context, state) {
         if (state is AuthenticatedState) {
-          _scaffoldkey.currentState.showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.teal,
-              duration: Duration(seconds: 2),
-              content: Text("${state.status.message}"),
-            ),
+          Fluttertoast.showToast(
+            msg: state.status.message,
+            backgroundColor: Colors.white,
+            textColor: Colors.green,
+          );
+          userEmailController.clear();
+          passwordController.clear();
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => UserMainDashboard()));
+        }
+        if (state is AuthErrorState) {
+          Fluttertoast.showToast(
+            msg: state.errorMessage,
+            backgroundColor: Colors.white,
+            textColor: Colors.red,
           );
         }
-        // if (state is AuthErrorState) {
-        //   _scaffoldkey.currentState.showSnackBar(
-        //     SnackBar(
-        //       content: Text("${state.e}"),
-        //     ),
-        //   );
-        // }
       },
       builder: (context, state) {
         return Form(
@@ -107,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(height: 8),
                             Container(
                               padding: EdgeInsets.all(8.0),
-                              child: userNameTextField(userNameController),
+                              child: userNameTextField(userEmailController),
                             ),
                             Container(
                               padding: EdgeInsets.all(8.0),
@@ -123,11 +127,17 @@ class _LoginPageState extends State<LoginPage> {
                                 style: TextStyle(fontSize: 16),
                               ),
                               onPressed: () {
-                                if (_formkey.currentState.validate()) {
+                                if (!_formkey.currentState.validate()) {
+                                  Fluttertoast.showToast(
+                                    msg: 'Invalid details',
+                                    backgroundColor: Colors.white,
+                                    textColor: Colors.red,
+                                  );
+                                } else {
                                   inject<AuthBloc>().add(
                                     LoginEvent(
                                       userModel: UserModel(
-                                        email: userNameController.text.trim(),
+                                        email: userEmailController.text.trim(),
                                         password:
                                             passwordController.text.trim(),
                                       ),
@@ -180,9 +190,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-Widget userNameTextField(TextEditingController userNameController) {
+Widget userNameTextField(TextEditingController userEmailController) {
   return TextFormField(
-    controller: userNameController,
+    controller: userEmailController,
     decoration: InputDecoration(
         contentPadding: EdgeInsets.all(8),
         filled: true,
@@ -200,10 +210,17 @@ Widget userNameTextField(TextEditingController userNameController) {
           Icons.person,
           color: Colors.teal[300],
         ),
-        labelText: 'User Name',
+        labelText: 'User Email',
         labelStyle: TextStyle(
             color: Colors.black87, fontSize: 16.0, fontWeight: FontWeight.bold),
         hintText: 'Jackie_Chan'),
+    validator: (value) {
+      if (value.isEmpty) {
+        return 'User Email Can not be empty';
+      } else {
+        return null;
+      }
+    },
   );
 }
 

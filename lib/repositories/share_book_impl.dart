@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sharebook/data/model/status.dart';
+import 'package:sharebook/data/model/upload_book_model.dart';
 import 'package:sharebook/data/model/user_model.dart';
 
 class ShareBookRepositoryImpl {
@@ -21,7 +22,7 @@ class ShareBookRepositoryImpl {
   Future<Status> addShareBook({UserModel userModel}) async {
     try {
       UserCredential response = await _auth.createUserWithEmailAndPassword(
-          email: userModel.fullName, password: userModel.password);
+          email: userModel.email, password: userModel.password);
 
       if (response.user.uid != null) {
         await FirebaseFirestore.instance
@@ -32,6 +33,7 @@ class ShareBookRepositoryImpl {
             'fullName': userModel.fullName,
             'contact': userModel.contact,
             'email': userModel.email,
+            'password': userModel.password,
           },
         );
         //after register it will directly login so we haveto signout
@@ -59,6 +61,14 @@ class ShareBookRepositoryImpl {
       } else {
         return Status(message: 'Could not Login', isSuccess: false, data: null);
       }
+    } catch (e) {
+      return Status(message: e.toString(), isSuccess: false, data: null);
+    }
+  }
+
+  Future<Status> uploadBook({UploadBookModel uploadBookModel}) async {
+    try {
+      return Status(message: 'Success', isSuccess: true, data: null);
     } catch (e) {
       return Status(message: e.toString(), isSuccess: false, data: null);
     }

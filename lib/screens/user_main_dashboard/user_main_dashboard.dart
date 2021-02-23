@@ -133,13 +133,7 @@ class _MainDashboardState extends State<MainDashboard> {
           'Avaiable Books',
           style: TextStyle(color: Colors.black),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          color: Colors.black,
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+        leading: SizedBox(),
         actions: [
           IconButton(
             icon: Icon(
@@ -157,19 +151,19 @@ class _MainDashboardState extends State<MainDashboard> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 140),
-              child: Image(
-                image: AssetImage('assets/images/birdSwipe.gif'),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 140),
+            //   child: Image(
+            //     image: AssetImage('assets/images/birdSwipe.gif'),
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.only(
                 left: kDefaultPadding,
                 right: kDefaultPadding,
-                bottom: 36 + kDefaultPadding,
+                //bottom: 36 + kDefaultPadding,
               ),
-              height: size.height * 0.2 - 60,
+              height: size.height * 0.2 - 90,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -180,9 +174,8 @@ class _MainDashboardState extends State<MainDashboard> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "Hi Plant",
-                    style: Theme.of(context).textTheme.headline5.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    "Swipe me right  ...",
+                    style: TextStyle(fontSize: 18),
                   ),
                   Spacer(),
                   Image.asset("assets/images/birdSwipe.gif")

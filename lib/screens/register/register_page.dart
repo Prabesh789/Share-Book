@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sharebook/blocs/register/register_bloc.dart';
 import 'package:sharebook/data/model/user_model.dart';
 import 'package:sharebook/global/componenets/const.dart';
@@ -44,27 +45,24 @@ class _RegisterPageState extends State<RegisterPage> {
       cubit: inject<RegisterBloc>(),
       listener: (context, state) {
         if (state is RegisterErrorState) {
-          _scaffoldkey.currentState.showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.teal[200],
-              duration: Duration(seconds: 2),
-              content: Text("${state.errorMessage}"),
-            ),
+          Fluttertoast.showToast(
+            msg: state.errorMessage,
+            backgroundColor: Colors.white,
+            textColor: Colors.red,
           );
         }
         if (state is RegisterAddedState) {
-          _scaffoldkey.currentState.showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.teal,
-              duration: Duration(seconds: 2),
-              content: Text("${state.status.message}"),
-            ),
+          Fluttertoast.showToast(
+            msg: state.status.message,
+            backgroundColor: Colors.white,
+            textColor: Colors.green,
           );
           fullNameController.clear();
           passwordController.clear();
           contactController.clear();
           emailController.clear();
         }
+        Navigator.pop(context);
       },
       builder: (context, state) {
         return Scaffold(
@@ -207,18 +205,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                           ),
                                         ),
                                       );
-                                      Navigator.pop(context);
                                     } else {
-                                      _scaffoldkey.currentState.showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: Colors.teal[200],
-                                          duration: Duration(seconds: 2),
-                                          content: Text(
-                                            "Register Failed ! ",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
+                                      Fluttertoast.showToast(
+                                        msg: 'Invalid details',
+                                        backgroundColor: Colors.white,
+                                        textColor: Colors.red,
                                       );
                                     }
                                   },

@@ -41,7 +41,7 @@ class _UploadBookState extends State<UploadBook> {
   ];
   List<String> _shareType = <String>['Rent', 'Sale', 'Free', 'Others'];
 
-  String _date;
+  int pickedDate;
 
   Future<Null> _selectDate(BuildContext context) async {
     DateTime _datePicker = await showDatePicker(
@@ -54,8 +54,9 @@ class _UploadBookState extends State<UploadBook> {
 
     if (_datePicker != null) {
       setState(() {
-        _date = DateFormat('MMM dd,yyyy').format(_datePicker);
-        dateController.text = _date;
+        pickedDate = _datePicker.microsecondsSinceEpoch;
+
+        dateController.text = DateFormat('MMM dd,yyyy').format(_datePicker);
       });
     }
   }
@@ -89,9 +90,6 @@ class _UploadBookState extends State<UploadBook> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20),
-                // Stack(children: [
-
-                // ],)
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Container(
@@ -120,7 +118,7 @@ class _UploadBookState extends State<UploadBook> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Container(
-                    height: size.height * 0.5,
+                    height: size.height * 0.6,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
@@ -161,7 +159,6 @@ class _UploadBookState extends State<UploadBook> {
                                   color: Colors.teal[300],
                                 ),
                                 contentPadding: EdgeInsets.all(8),
-                                hintText: (_date.toString()),
                                 labelText: 'Date of published',
                                 labelStyle: TextStyle(
                                     fontSize: 16,

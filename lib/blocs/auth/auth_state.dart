@@ -25,7 +25,7 @@ class UnAuthenticatedState extends AuthState {
   List<Object> get props => [];
 }
 
-class AuthErrorState extends AuthBloc {
+class AuthErrorState extends AuthState {
   final String errorMessage;
 
   AuthErrorState({this.errorMessage});

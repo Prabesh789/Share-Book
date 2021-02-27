@@ -21,13 +21,14 @@ class ShareBookRepositoryImpl {
 
   Future<Status> addShareBook({UserModel userModel}) async {
     try {
-      UserCredential response = await _auth.createUserWithEmailAndPassword(
-          email: userModel.email, password: userModel.password);
+      User response = (await _auth.createUserWithEmailAndPassword(
+              email: userModel.email, password: userModel.password))
+          .user;
 
-      if (response.user.uid != null) {
+      if (response.uid != null) {
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(response.user.uid)
+            .doc(response.uid)
             .set(
           {
             'fullName': userModel.fullName,
@@ -45,7 +46,7 @@ class ShareBookRepositoryImpl {
             message: "Could not register !", isSuccess: false, data: null);
       }
     } catch (e) {
-      return Status(message: e.toString(), isSuccess: false, data: null);
+      return Status(message: e.message, isSuccess: false, data: null);
     }
   }
 
@@ -62,7 +63,7 @@ class ShareBookRepositoryImpl {
         return Status(message: 'Could not Login', isSuccess: false, data: null);
       }
     } catch (e) {
-      return Status(message: e.toString(), isSuccess: false, data: null);
+      return Status(message: e.message, isSuccess: false, data: null);
     }
   }
 

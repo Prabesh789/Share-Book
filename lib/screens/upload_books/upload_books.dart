@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sharebook/global/componenets/const.dart';
 import 'package:intl/intl.dart';
 
@@ -9,6 +12,8 @@ class UploadBook extends StatefulWidget {
 }
 
 class _UploadBookState extends State<UploadBook> {
+  PickedFile _bookImageFile;
+  final ImagePicker _picker = ImagePicker();
   String uId;
   @override
   void initState() {
@@ -92,22 +97,45 @@ class _UploadBookState extends State<UploadBook> {
                 SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
-                  child: Container(
-                    height: size.height * 0.3 - 20,
-                    width: size.width * 0.4,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 50,
-                          color: kPrimaryColor.withOpacity(0.10),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: size.height * 0.3 - 20,
+                        width: size.width * 0.4,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 10),
+                              blurRadius: 50,
+                              color: kPrimaryColor.withOpacity(0.10),
+                            ),
+                          ],
+                          // image: new DecorationImage(
+                          //   fit: BoxFit.fill,
+                          //   image: FileImage(File(_bookImageFile.path)),
+                          // ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Positioned(
+                        bottom: 8,
+                        right: 8,
+                        child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: ((builder) => bottonSheet()));
+                          },
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.teal,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(height: 10),
@@ -288,6 +316,57 @@ class _UploadBookState extends State<UploadBook> {
         ),
       ),
     );
+  }
+
+//Container after clicking on camera icon
+  Widget bottonSheet() {
+    return Container(
+      height: 100,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Choose profile photo",
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton.icon(
+                icon: Icon(Icons.camera),
+                onPressed: () {
+                  takePhoto(ImageSource.camera);
+                },
+                label: Text("Camera"),
+              ),
+              FlatButton.icon(
+                icon: Icon(Icons.image),
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                label: Text("Gallery"),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+//taking a picture from camera or gallery
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _bookImageFile = pickedFile;
+    });
+    Navigator.of(context).pop();
   }
 }
 

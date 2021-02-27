@@ -39,6 +39,7 @@ dependencies:
   fluttertoast: ^7.1.8
   page_transition: ^1.1.7+6
   font_awesome: ^5.10.1
+  image_picker: ^0.6.7+22
 
 
 dev_dependencies:

@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sharebook/blocs/register/register_bloc.dart';
 import 'package:sharebook/data/model/user_model.dart';
 import 'package:sharebook/global/componenets/const.dart';
@@ -13,6 +15,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
@@ -61,8 +65,8 @@ class _RegisterPageState extends State<RegisterPage> {
           passwordController.clear();
           contactController.clear();
           emailController.clear();
+          Navigator.pop(context);
         }
-        Navigator.pop(context);
       },
       builder: (context, state) {
         return Scaffold(
@@ -90,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     key: _formkey,
                     child: Container(
                       margin: EdgeInsets.all(8),
-                      height: size.height * 0.5 - 60,
+                      height: size.height * 0.5 + 60,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -117,6 +121,37 @@ class _RegisterPageState extends State<RegisterPage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            SizedBox(height: 10),
+                            Container(
+                              child: Stack(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    radius: 60.0,
+                                    backgroundColor: Colors.teal[100],
+                                    backgroundImage: _imageFile == null
+                                        ? AssetImage("assets/images/user.png")
+                                        : FileImage(File(_imageFile.path)),
+                                  ),
+                                  Positioned(
+                                    bottom: 20,
+                                    right: 20,
+                                    child: InkWell(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: ((builder) =>
+                                                bottonSheet()));
+                                      },
+                                      child: Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.teal,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10),
                             Container(
                               margin: EdgeInsets.only(left: 10, right: 10),
                               padding: EdgeInsets.all(4),
@@ -153,7 +188,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       color: Colors.black12,
                                     )),
                                     prefixIcon: Icon(
-                                      Icons.person,
+                                      Icons.lock,
                                       color: Colors.teal[300],
                                     ),
                                     suffixIcon: FlatButton(
@@ -220,7 +255,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 15),
                 ],
               ),
             ),
@@ -228,6 +264,57 @@ class _RegisterPageState extends State<RegisterPage> {
         );
       },
     );
+  }
+
+//Container after clicking on camera icon
+  Widget bottonSheet() {
+    return Container(
+      height: 100,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Choose profile photo",
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton.icon(
+                icon: Icon(Icons.camera),
+                onPressed: () {
+                  takePhoto(ImageSource.camera);
+                },
+                label: Text("Camera"),
+              ),
+              FlatButton.icon(
+                icon: Icon(Icons.image),
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                label: Text("Gallery"),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+//taking a picture from camera or gallery
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _imageFile = pickedFile;
+    });
+    Navigator.of(context).pop();
   }
 }
 
@@ -282,7 +369,7 @@ Widget contactTextField(TextEditingController contactController) {
           color: Colors.black12,
         )),
         prefixIcon: Icon(
-          Icons.person,
+          Icons.phone_android,
           color: Colors.teal[300],
         ),
         labelText: 'Contact Number',
@@ -316,7 +403,7 @@ Widget emailTextField(TextEditingController emailController) {
           color: Colors.black12,
         )),
         prefixIcon: Icon(
-          Icons.person,
+          Icons.email,
           color: Colors.teal[300],
         ),
         labelText: 'Email Address',

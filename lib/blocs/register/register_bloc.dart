@@ -29,7 +29,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       if (response.isSuccess) {
         yield RegisterAddedState(status: response);
       } else {
-        yield RegisterErrorState(errorMessage: "Failed to register !");
+        yield RegisterErrorState(errorMessage: response.message);
       }
     }
   }

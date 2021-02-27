@@ -36,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (response.isSuccess) {
         yield AuthenticatedState(status: response);
       } else {
-        AuthErrorState(errorMessage: "Failed to login !");
+        yield AuthErrorState(errorMessage: response.message);
       }
     }
   }

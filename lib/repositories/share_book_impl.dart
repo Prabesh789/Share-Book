@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sharebook/data/model/status.dart';
 import 'package:sharebook/data/model/upload_book_model.dart';
 import 'package:sharebook/data/model/user_model.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path/path.dart' as path;
 
 class ShareBookRepositoryImpl {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,21 +28,41 @@ class ShareBookRepositoryImpl {
           .user;
 
       if (response.uid != null) {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(response.uid)
-            .set(
-          {
-            'fullName': userModel.fullName,
-            'contact': userModel.contact,
-            'email': userModel.email,
-            'password': userModel.password,
-          },
-        );
-        //after register it will directly login so we haveto signout
-        await _auth.signOut();
-        return Status(
-            message: "Register Success !", isSuccess: true, data: response);
+        String fileName = path.basename(userModel.image.path);
+        firebase_storage.Reference reference = firebase_storage
+            .FirebaseStorage.instance
+            .ref()
+            .child('user_profile')
+            .child(fileName);
+        firebase_storage.UploadTask uploadTask =
+            reference.putFile(userModel.image);
+        firebase_storage.TaskSnapshot storageTaskSnapshot;
+        uploadTask.then((value) {
+          if (value != null) {
+            storageTaskSnapshot = value;
+            storageTaskSnapshot.ref.getDownloadURL().then((downloadUrl) async {
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(response.uid)
+                  .set(
+                {
+                  'image': downloadUrl,
+                  'fullName': userModel.fullName,
+                  'contact': userModel.contact,
+                  'email': userModel.email,
+                  'password': userModel.password,
+                },
+              );
+              //after register it will directly login so we haveto signout
+              await _auth.signOut();
+            });
+            return Status(
+                message: "Register Success !", isSuccess: true, data: response);
+          } else {
+            return Status(
+                message: "Could not register !", isSuccess: false, data: null);
+          }
+        });
       } else {
         return Status(
             message: "Could not register !", isSuccess: false, data: null);

@@ -12,7 +12,7 @@ class UploadBook extends StatefulWidget {
 }
 
 class _UploadBookState extends State<UploadBook> {
-  PickedFile _bookImageFile;
+  PickedFile _bookImage;
   final ImagePicker _picker = ImagePicker();
   String uId;
   @override
@@ -99,27 +99,45 @@ class _UploadBookState extends State<UploadBook> {
                   padding: const EdgeInsets.only(left: 10),
                   child: Stack(
                     children: <Widget>[
-                      Container(
-                        height: size.height * 0.3 - 20,
-                        width: size.width * 0.4,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              blurRadius: 50,
-                              color: kPrimaryColor.withOpacity(0.10),
+                      _bookImage != null
+                          ? Container(
+                              height: size.height * 0.3 - 20,
+                              width: size.width * 0.4,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 10),
+                                    blurRadius: 50,
+                                    color: kPrimaryColor.withOpacity(0.10),
+                                  ),
+                                ],
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: FileImage(File(_bookImage.path)),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: size.height * 0.3 - 20,
+                              width: size.width * 0.4,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 10),
+                                    blurRadius: 50,
+                                    color: kPrimaryColor.withOpacity(0.10),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                          // image: new DecorationImage(
-                          //   fit: BoxFit.fill,
-                          //   image: FileImage(File(_bookImageFile.path)),
-                          // ),
-                        ),
-                      ),
                       Positioned(
                         bottom: 8,
                         right: 8,
@@ -364,7 +382,7 @@ class _UploadBookState extends State<UploadBook> {
       source: source,
     );
     setState(() {
-      _bookImageFile = pickedFile;
+      _bookImage = pickedFile;
     });
     Navigator.of(context).pop();
   }

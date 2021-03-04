@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,7 +16,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  PickedFile _imageFile;
+  File _imageFile;
   final ImagePicker _picker = ImagePicker();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -26,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   bool _obscureText = true;
 
-  void dspose() {
+  void dispose() {
     fullNameController.dispose();
     contactController.dispose();
     emailController.dispose();
@@ -230,6 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       inject<RegisterBloc>().add(
                                         AddRegister(
                                           userModel: UserModel(
+                                            image: _imageFile,
                                             fullName:
                                                 fullNameController.text.trim(),
                                             contact:
@@ -312,7 +314,7 @@ class _RegisterPageState extends State<RegisterPage> {
       source: source,
     );
     setState(() {
-      _imageFile = pickedFile;
+      _imageFile = File(pickedFile.path);
     });
     Navigator.of(context).pop();
   }

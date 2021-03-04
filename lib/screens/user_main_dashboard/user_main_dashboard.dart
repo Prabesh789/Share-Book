@@ -1,7 +1,11 @@
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/screens/login_screen/login_page.dart';
 import 'package:sharebook/screens/upload_books/upload_books.dart';
+import 'package:sharebook/screens/user_homepage/user_home_page.dart';
+import 'package:sharebook/screens/user_profile/user_profile.dart';
 
 class UserMainDashboard extends StatefulWidget {
   @override
@@ -49,12 +53,22 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
                     child: ListView(
                       children: <Widget>[
                         ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UserHomePage()));
+                          },
                           leading: Icon(Icons.home),
                           title: Text('Home'),
                         ),
                         ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UserProfile()));
+                          },
                           leading: Icon(Icons.person),
                           title: Text('Profile'),
                         ),
@@ -64,7 +78,13 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
                           title: Text('Settings'),
                         ),
                         ListTile(
-                          onTap: () {},
+                          onTap: () async {
+                            await FirebaseAuth.instance.signOut().then((value) {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (contect) => LoginPage()));
+                            });
+                          },
                           leading: Icon(Icons.logout),
                           title: Text('Log out'),
                         ),

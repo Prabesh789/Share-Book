@@ -56,13 +56,10 @@ class ShareBookRepositoryImpl {
               //after register it will directly login so we haveto signout
               await _auth.signOut();
             });
-            return Status(
-                message: "Register Success !", isSuccess: true, data: response);
-          } else {
-            return Status(
-                message: "Could not register !", isSuccess: false, data: null);
           }
         });
+        return Status(
+            message: "Register Success !", isSuccess: true, data: response);
       } else {
         return Status(
             message: "Could not register !", isSuccess: false, data: null);

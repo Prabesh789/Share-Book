@@ -1,3 +1,4 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +10,7 @@ import 'package:sharebook/global/componenets/const.dart';
 import 'package:sharebook/screens/register/register_page.dart';
 import 'package:sharebook/screens/user_main_dashboard/user_main_dashboard.dart';
 import 'package:sharebook/utils/di.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,7 +19,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
-  //final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   final TextEditingController userEmailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -117,35 +118,96 @@ class _LoginPageState extends State<LoginPage> {
                               padding: EdgeInsets.all(8.0),
                               child: passwoerdTextField(passwordController),
                             ),
-                            RaisedButton(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              color: Colors.teal[200],
-                              child: Text(
-                                "Login",
-                                style: TextStyle(fontSize: 16),
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 350),
+                                decoration: BoxDecoration(
+                                  color: Colors.teal[200],
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                height: 50,
+                                child: AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 350),
+                                  child: (state is AuthLoadingState)
+                                      ? Center(
+                                          child: SpinKitRing(
+                                            size: 20,
+                                            lineWidth: 4,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : Center(
+                                          child: InkWell(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: 50,
+                                              child: Text(
+                                                "Login",
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              if (!_formkey.currentState
+                                                  .validate()) {
+                                                Fluttertoast.showToast(
+                                                  msg: 'Invalid details',
+                                                  backgroundColor: Colors.white,
+                                                  textColor: Colors.red,
+                                                );
+                                              } else {
+                                                inject<AuthBloc>().add(
+                                                  LoginEvent(
+                                                    userModel: UserModel(
+                                                      email: userEmailController
+                                                          .text
+                                                          .trim(),
+                                                      password:
+                                                          passwordController
+                                                              .text
+                                                              .trim(),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                ),
                               ),
-                              onPressed: () {
-                                if (!_formkey.currentState.validate()) {
-                                  Fluttertoast.showToast(
-                                    msg: 'Invalid details',
-                                    backgroundColor: Colors.white,
-                                    textColor: Colors.red,
-                                  );
-                                } else {
-                                  inject<AuthBloc>().add(
-                                    LoginEvent(
-                                      userModel: UserModel(
-                                        email: userEmailController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
                             ),
+                            // RaisedButton(
+                            //   elevation: 5,
+                            //   shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(10.0)),
+                            //   color: Colors.teal[200],
+                            //   child: Text(
+                            //     "Login",
+                            //     style: TextStyle(fontSize: 16),
+                            //   ),
+                            //   onPressed: () {
+                            //     if (!_formkey.currentState.validate()) {
+                            //       Fluttertoast.showToast(
+                            //         msg: 'Invalid details',
+                            //         backgroundColor: Colors.white,
+                            //         textColor: Colors.red,
+                            //       );
+                            //     } else {
+                            //       inject<AuthBloc>().add(
+                            //         LoginEvent(
+                            //           userModel: UserModel(
+                            //             email: userEmailController.text.trim(),
+                            //             password:
+                            //                 passwordController.text.trim(),
+                            //           ),
+                            //         ),
+                            //       );
+                            //     }
+                            //   },
+                            // ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -162,12 +224,12 @@ class _LoginPageState extends State<LoginPage> {
                                       style: TextStyle(color: Colors.black),
                                       children: [
                                         TextSpan(
-                                          text: 'Tab Here',
+                                          text: 'Get Started',
                                           style: TextStyle(
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14.0,
-                                              fontStyle: FontStyle.italic),
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14.0,
+                                          ),
                                         )
                                       ],
                                     ),

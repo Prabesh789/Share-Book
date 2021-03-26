@@ -37,6 +37,7 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
         stream:
             FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
         builder: (context, snapshot) {
+          print(snapshot);
           if (!snapshot.hasData) {
             return Container(
               height: MediaQuery.of(context).size.height,

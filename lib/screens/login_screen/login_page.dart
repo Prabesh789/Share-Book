@@ -2,7 +2,8 @@ import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sharebook/blocs/auth/auth_bloc.dart';
+// import 'package:sharebook/blocs/auth/auth_bloc.dart';
+import 'package:sharebook/cubits/cubit/auth_cubit.dart';
 import 'package:sharebook/data/model/user_model.dart';
 import 'package:sharebook/global/componenets/const.dart';
 // import 'package:sharebook/screens/main_dashboard/drawer/user_drawer.dart';
@@ -25,8 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<AuthBloc, AuthState>(
-      cubit: inject<AuthBloc>(),
+    return BlocConsumer<AuthCubit, AuthState>(
+      cubit: inject<AuthCubit>(),
       listener: (context, state) {
         if (state is AuthenticatedState) {
           Fluttertoast.showToast(
@@ -36,8 +37,10 @@ class _LoginPageState extends State<LoginPage> {
           );
           userEmailController.clear();
           passwordController.clear();
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => UserMainDashboard()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => UserMainDashboard(
+                    userId: state.status.data,
+                  )));
         }
         if (state is AuthErrorState) {
           Fluttertoast.showToast(
@@ -159,17 +162,27 @@ class _LoginPageState extends State<LoginPage> {
                                                   textColor: Colors.red,
                                                 );
                                               } else {
-                                                inject<AuthBloc>().add(
-                                                  LoginEvent(
-                                                    userModel: UserModel(
-                                                      email: userEmailController
-                                                          .text
-                                                          .trim(),
-                                                      password:
-                                                          passwordController
-                                                              .text
-                                                              .trim(),
-                                                    ),
+                                                // inject<AuthCubit>().add(
+                                                //   LoginEvent(
+                                                //     userModel: UserModel(
+                                                //       email: userEmailController
+                                                //           .text
+                                                //           .trim(),
+                                                //       password:
+                                                //           passwordController
+                                                //               .text
+                                                //               .trim(),
+                                                //     ),
+                                                //   ),
+                                                // );
+                                                inject<AuthCubit>().loginEvent(
+                                                  userModel: UserModel(
+                                                    email: userEmailController
+                                                        .text
+                                                        .trim(),
+                                                    password: passwordController
+                                                        .text
+                                                        .trim(),
                                                   ),
                                                 );
                                               }
@@ -196,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                             //         textColor: Colors.red,
                             //       );
                             //     } else {
-                            //       inject<AuthBloc>().add(
+                            //       inject<AuthCubit>().add(
                             //         LoginEvent(
                             //           userModel: UserModel(
                             //             email: userEmailController.text.trim(),

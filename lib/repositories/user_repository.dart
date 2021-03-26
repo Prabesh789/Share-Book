@@ -6,19 +6,19 @@ import 'package:sharebook/data/model/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as path;
 
-class ShareBookRepositoryImpl {
+class UserRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  Future<bool> isLoggedIn() async {
+  Future<String> isLoggedIn() async {
     try {
       //It was done previous splash screen, it is for single user
       User response = _auth.currentUser;
-      if (response.uid == null) {
-        return false;
+      if (response.uid != null) {
+        return response.uid;
       } else {
-        return true;
+        return null;
       }
     } catch (e) {}
-    return false;
+    return null;
   }
 
   Future<Status> addShareBook({UserModel userModel}) async {

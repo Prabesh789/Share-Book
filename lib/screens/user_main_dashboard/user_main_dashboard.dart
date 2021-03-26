@@ -10,32 +10,23 @@ import 'package:sharebook/screens/user_homepage/user_home_page.dart';
 import 'package:sharebook/screens/user_profile/user_profile.dart';
 
 class UserMainDashboard extends StatefulWidget {
+  final String userId;
+  UserMainDashboard({@required this.userId});
   @override
   _UserMainDashboardState createState() => _UserMainDashboardState();
 }
 
 class _UserMainDashboardState extends State<UserMainDashboard> {
   double value = 0;
-  String uid;
-
-  @override
-  void initState() {
-    FirebaseAuth.instance.authStateChanges().listen((User user) async {
-      if (user != null) {
-        setState(() {
-          uid = user.uid;
-        });
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream:
-            FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.userId)
+            .snapshots(),
         builder: (context, snapshot) {
           print(snapshot);
           if (!snapshot.hasData) {

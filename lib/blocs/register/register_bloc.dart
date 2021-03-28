@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sharebook/data/model/status.dart';
 import 'package:sharebook/data/model/user_model.dart';
-import 'package:sharebook/repositories/share_book_impl.dart';
+import 'package:sharebook/repositories/user_repository.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';

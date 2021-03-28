@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sharebook/global/componenets/const.dart';
 import 'package:sharebook/screens/login_screen/login_page.dart';
 import 'package:sharebook/screens/upload_books/upload_books.dart';
 import 'package:sharebook/screens/user_homepage/user_home_page.dart';
@@ -176,16 +175,16 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: Image.asset("assets/images/birdSwipe.gif"),
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           'Avaiable Books',
           style: TextStyle(color: Colors.black),
         ),
-        leading: SizedBox(),
         actions: [
           IconButton(
             icon: Icon(
@@ -194,49 +193,17 @@ class _MainDashboardState extends State<MainDashboard> {
               semanticLabel: 'Upload Book',
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UploadBook()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UploadBook(
+                            userId: null,
+                          )));
             },
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 140),
-            //   child: Image(
-            //     image: AssetImage('assets/images/birdSwipe.gif'),
-            //   ),
-            // ),
-            Container(
-              padding: EdgeInsets.only(
-                left: kDefaultPadding,
-                right: kDefaultPadding,
-                //bottom: 36 + kDefaultPadding,
-              ),
-              height: size.height * 0.2 - 90,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "Swipe me right  ...",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Spacer(),
-                  Image.asset("assets/images/birdSwipe.gif")
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: Center(),
     );
   }
 }

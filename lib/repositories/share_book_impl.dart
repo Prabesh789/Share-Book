@@ -8,6 +8,7 @@ import 'package:path/path.dart' as path;
 
 class ShareBookRepositoryImpl {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   Future<bool> isLoggedIn() async {
     try {
       //It was done previous splash screen, it is for single user
@@ -40,22 +41,24 @@ class ShareBookRepositoryImpl {
         uploadTask.then((value) {
           if (value != null) {
             storageTaskSnapshot = value;
-            storageTaskSnapshot.ref.getDownloadURL().then((downloadUrl) async {
-              await FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(response.uid)
-                  .set(
-                {
-                  'image': downloadUrl,
-                  'fullName': userModel.fullName,
-                  'contact': userModel.contact,
-                  'email': userModel.email,
-                  'password': userModel.password,
-                },
-              );
-              //after register it will directly login so we haveto signout
-              await _auth.signOut();
-            });
+            storageTaskSnapshot.ref.getDownloadURL().then(
+              (downloadUrl) async {
+                await FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(response.uid)
+                    .set(
+                  {
+                    'image': downloadUrl,
+                    'fullName': userModel.fullName,
+                    'contact': userModel.contact,
+                    'email': userModel.email,
+                    'password': userModel.password,
+                  },
+                );
+                //after register it will directly login so we haveto signout
+                await _auth.signOut();
+              },
+            );
           }
         });
         return Status(
@@ -88,9 +91,27 @@ class ShareBookRepositoryImpl {
 
   Future<Status> uploadBook({UploadBookModel uploadBookModel}) async {
     try {
+      final response = await _firebaseFirestore.collection('books').doc().set(
+        {
+          'bookImage': uploadBookModel.bookImage,
+          'bookTitle': uploadBookModel.bookTitle,
+          'publishedDate': uploadBookModel.publishedDate,
+          'selectedBookType': uploadBookModel.selectedBookType,
+          'shareType': uploadBookModel.shareType,
+          'bookDescription': uploadBookModel.bookDescription,
+          'amount': uploadBookModel.amount,
+          'uploadedBy': uploadBookModel.uploadedBy,
+        },
+      );
       return Status(message: 'Success', isSuccess: true, data: null);
     } catch (e) {
       return Status(message: e.toString(), isSuccess: false, data: null);
     }
+
+    // try {
+    //   return Status(message: 'Success', isSuccess: true, data: null);
+    // } catch (e) {
+    //   return Status(message: e.toString(), isSuccess: false, data: null);
+    // }
   }
 }

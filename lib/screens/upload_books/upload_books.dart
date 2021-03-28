@@ -7,6 +7,9 @@ import 'package:sharebook/global/componenets/const.dart';
 import 'package:intl/intl.dart';
 
 class UploadBook extends StatefulWidget {
+  final String userId;
+
+  const UploadBook({Key key, @required this.userId}) : super(key: key);
   @override
   _UploadBookState createState() => _UploadBookState();
 }
@@ -14,18 +17,6 @@ class UploadBook extends StatefulWidget {
 class _UploadBookState extends State<UploadBook> {
   PickedFile _bookImage;
   final ImagePicker _picker = ImagePicker();
-  String uId;
-  @override
-  void initState() {
-    FirebaseAuth.instance.authStateChanges().listen((User user) async {
-      if (user != null) {
-        setState(() {
-          uId = user.uid;
-        });
-      }
-    });
-    super.initState();
-  }
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController bookNameController = TextEditingController();

@@ -8,6 +8,7 @@ class UploadBookModel {
   String shareType;
   String bookDescription;
   double amount;
+  String uploadedBy;
   UploadBookModel({
     this.bookImage,
     this.bookTitle,
@@ -16,5 +17,6 @@ class UploadBookModel {
     this.shareType,
     this.bookDescription,
     this.amount,
+    this.uploadedBy,
   });
 }

@@ -6,3 +6,12 @@ abstract class UploadBookEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class AddUploadBook extends UploadBookEvent {
+  final UploadBookModel uploadBookModel;
+
+  AddUploadBook({this.uploadBookModel});
+
+  @override
+  List<Object> get props => [];
+}

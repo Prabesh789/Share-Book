@@ -23,8 +23,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     if (event is IsAuthenticatedEvent) {
       final response = await _shareBookRepository.isLoggedIn();
-      if (response) {
-        yield AuthenticatedState();
+      if (response != null) {
+        yield AuthenticatedState(
+            status: Status(
+                data: response, isSuccess: true, message: "Logged In !"));
       } else {
         yield UnAuthenticatedState();
       }

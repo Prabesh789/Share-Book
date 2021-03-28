@@ -9,17 +9,30 @@ import 'package:path/path.dart' as path;
 class UserRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  Future<bool> isLoggedIn() async {
+  // Future<bool> isLoggedIn() async {
+  //   try {
+  //     //It was done previous splash screen, it is for single user
+  //     User response = _auth.currentUser;
+  //     if (response.uid == null) {
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   } catch (e) {}
+  //   return false;
+  // }
+
+  Future<String> isLoggedIn() async {
     try {
       //It was done previous splash screen, it is for single user
       User response = _auth.currentUser;
-      if (response.uid == null) {
-        return false;
+      if (response.uid != null) {
+        return response.uid;
       } else {
-        return true;
+        return null;
       }
     } catch (e) {}
-    return false;
+    return null;
   }
 
   Future<Status> addShareBook({UserModel userModel}) async {

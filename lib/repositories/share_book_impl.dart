@@ -6,7 +6,7 @@ import 'package:sharebook/data/model/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as path;
 
-class ShareBookRepositoryImpl {
+class UserRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   Future<bool> isLoggedIn() async {

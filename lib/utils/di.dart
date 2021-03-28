@@ -15,7 +15,7 @@ Future<void> initDependencyInjection() async {
 }
 
 void _registerRepository() {
-  inject.registerLazySingleton(() => ShareBookRepositoryImpl());
+  inject.registerLazySingleton(() => UserRepository());
 }
 
 void _registerBlocs() {

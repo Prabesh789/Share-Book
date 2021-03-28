@@ -11,8 +11,8 @@ part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final ShareBookRepositoryImpl _shareBookRepository;
-  RegisterBloc({@required ShareBookRepositoryImpl shareBookRepository})
+  final UserRepository _shareBookRepository;
+  RegisterBloc({@required UserRepository shareBookRepository})
       : assert(shareBookRepository != null),
         _shareBookRepository = shareBookRepository,
         super(RegisterInitial());

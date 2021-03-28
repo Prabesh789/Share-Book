@@ -11,8 +11,8 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final ShareBookRepositoryImpl _shareBookRepository;
-  AuthBloc({@required ShareBookRepositoryImpl shareBookRepository})
+  final UserRepository _shareBookRepository;
+  AuthBloc({@required UserRepository shareBookRepository})
       : assert(shareBookRepository != null),
         _shareBookRepository = shareBookRepository,
         super(AuthInitial());

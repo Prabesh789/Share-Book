@@ -12,10 +12,10 @@ part 'upload_book_event.dart';
 part 'upload_book_state.dart';
 
 class UploadBookBloc extends Bloc<UploadBookEvent, UploadBookState> {
-  final ShareBookRepositoryImpl _shareBookRepository;
-  UploadBookBloc({@required ShareBookRepositoryImpl shareBookRepository})
+  final UserRepository _shareBookRepository;
+  UploadBookBloc({@required UserRepository shareBookRepository})
       : assert(shareBookRepository != null),
-      _shareBookRepository = shareBookRepository,
+        _shareBookRepository = shareBookRepository,
         super(UploadBookInitial());
 
   @override

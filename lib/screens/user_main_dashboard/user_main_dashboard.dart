@@ -136,7 +136,7 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
                       ..setEntry(0, 3, 200 * val)
                       ..rotateY(
                           (pi / 6) * val), //this allow to transform the screen
-                    child: MainDashboard(),
+                    child: MainDashboard(userId: null),
                   ));
                 },
               ),
@@ -168,6 +168,9 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
 }
 
 class MainDashboard extends StatefulWidget {
+  final String userId;
+
+  const MainDashboard({Key key, @required this.userId}) : super(key: key);
   @override
   _MainDashboardState createState() => _MainDashboardState();
 }
@@ -197,7 +200,7 @@ class _MainDashboardState extends State<MainDashboard> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => UploadBook(
-                            userId: null,
+                            userId: widget.userId,
                           )));
             },
           ),

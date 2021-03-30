@@ -3,11 +3,11 @@ import 'dart:io';
 class UploadBookModel {
   File bookImage;
   String bookTitle;
-  int publishedDate;
+  String publishedDate;
   String selectedBookType;
   String shareType;
   String bookDescription;
-  double amount;
+  String amount;
   String uploadedBy;
   UploadBookModel({
     this.bookImage,

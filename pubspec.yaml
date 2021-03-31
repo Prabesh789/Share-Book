@@ -43,6 +43,7 @@ dependencies:
   cached_network_image: ^2.5.0
   argon_buttons_flutter: ^1.0.6
   flutter_spinkit: 
+  material_design_icons_flutter: ^4.0.5955
 
 
 dev_dependencies:

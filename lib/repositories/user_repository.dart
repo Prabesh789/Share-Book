@@ -119,8 +119,8 @@ class UserRepository {
             storageTaskSnapshot = value;
             storageTaskSnapshot.ref.getDownloadURL().then(
               (downloadUrl) async {
-                final response =
-                    await _firebaseFirestore.collection('books').doc().set(
+                // final response =
+                await _firebaseFirestore.collection('books').doc().set(
                   {
                     'bookImage': downloadUrl,
                     'bookTitle': uploadBookModel.bookTitle,

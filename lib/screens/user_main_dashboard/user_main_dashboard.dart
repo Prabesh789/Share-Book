@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:sharebook/screens/login_screen/login_page.dart';
 import 'package:sharebook/screens/upload_books/upload_books.dart';
 import 'package:sharebook/screens/user_homepage/user_home_page.dart';
+import 'package:sharebook/screens/user_main_dashboard/custom_container.dart';
 import 'package:sharebook/screens/user_profile/user_profile.dart';
 
 class UserMainDashboard extends StatefulWidget {
@@ -178,7 +179,6 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   @override
   Widget build(BuildContext context) {
-    //Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset("assets/images/birdSwipe.gif"),
@@ -206,7 +206,20 @@ class _MainDashboardState extends State<MainDashboard> {
           ),
         ],
       ),
-      body: Center(),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              CustomContainer(bookType: "Story"),
+              CustomContainer(bookType: "Novels"),
+              CustomContainer(bookType: "College Books"),
+              CustomContainer(bookType: "Research Papers"),
+              CustomContainer(bookType: "Encyclopedia"),
+              CustomContainer(bookType: "Others"),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -17,10 +17,10 @@ class UploadBookLoadingState extends UploadBookState {
   List<Object> get props => [];
 }
 
-class UploadBookAddesState extends UploadBookState {
+class UploadBookAddedState extends UploadBookState {
   final Status status;
 
-  UploadBookAddesState({this.status});
+  UploadBookAddedState({this.status});
   @override
   List<Object> get props => [status];
 }

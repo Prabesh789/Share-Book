@@ -104,18 +104,40 @@ class UserRepository {
 
   Future<Status> uploadBook({UploadBookModel uploadBookModel}) async {
     try {
-      final response = await _firebaseFirestore.collection('books').doc().set(
-        {
-          'bookImage': uploadBookModel.bookImage,
-          'bookTitle': uploadBookModel.bookTitle,
-          'publishedDate': uploadBookModel.publishedDate,
-          'selectedBookType': uploadBookModel.selectedBookType,
-          'shareType': uploadBookModel.shareType,
-          'bookDescription': uploadBookModel.bookDescription,
-          'amount': uploadBookModel.amount,
-          'uploadedBy': uploadBookModel.uploadedBy,
+      String fileName = path.basename(uploadBookModel.bookImage.path);
+      firebase_storage.Reference reference = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child('book_image')
+          .child(fileName);
+      firebase_storage.UploadTask uploadTask =
+          reference.putFile(uploadBookModel.bookImage);
+      firebase_storage.TaskSnapshot storageTaskSnapshot;
+      uploadTask.then(
+        (value) {
+          if (value != null) {
+            storageTaskSnapshot = value;
+            storageTaskSnapshot.ref.getDownloadURL().then(
+              (downloadUrl) async {
+                final response =
+                    await _firebaseFirestore.collection('books').doc().set(
+                  {
+                    'bookImage': downloadUrl,
+                    'bookTitle': uploadBookModel.bookTitle,
+                    'publishedDate': uploadBookModel.publishedDate,
+                    'selectedBookType': uploadBookModel.selectedBookType,
+                    'shareType': uploadBookModel.shareType,
+                    'bookDescription': uploadBookModel.bookDescription,
+                    'amount': uploadBookModel.amount,
+                    'uploadedBy': uploadBookModel.uploadedBy,
+                  },
+                );
+              },
+            );
+          }
         },
       );
+
       return Status(message: 'Success', isSuccess: true, data: null);
     } catch (e) {
       return Status(message: e.toString(), isSuccess: false, data: null);

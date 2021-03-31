@@ -86,16 +86,16 @@ class _UploadBookState extends State<UploadBook> {
           listener: (context, state) {
             if (state is UploadBookErrorState) {
               Fluttertoast.showToast(
-                msg: state.errorMessage,
-                backgroundColor: Colors.white,
+                msg: "Failed to upload book...!",
+                backgroundColor: Colors.teal[100],
                 textColor: Colors.red,
               );
             }
-            if (state is UploadBookAddesState) {
+            if (state is UploadBookAddedState) {
               Fluttertoast.showToast(
-                msg: state.status.message,
+                msg: "Successfully uploaded.",
                 backgroundColor: Colors.white,
-                textColor: Colors.green,
+                textColor: Colors.green[300],
               );
               bookNameController.clear();
               bookDescriptionController.clear();
@@ -370,8 +370,8 @@ class _UploadBookState extends State<UploadBook> {
                                 bookImage: _bookImage,
                                 amount: amountController.text.trim(),
                                 publishedDate: dateController.text.trim(),
-                                selectedBookType: null,
-                                shareType: null,
+                                selectedBookType: selectedType,
+                                shareType: shareType,
                                 uploadedBy: widget.userId,
                               ),
                             ),

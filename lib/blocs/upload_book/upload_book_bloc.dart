@@ -20,5 +20,18 @@ class UploadBookBloc extends Bloc<UploadBookEvent, UploadBookState> {
   @override
   Stream<UploadBookState> mapEventToState(
     UploadBookEvent event,
-  ) async* {}
+  ) async* {
+    if (event is AddUploadBook) {
+      yield UploadBookLoadingState();
+
+      final response = await _shareBookRepository.uploadBook(
+          uploadBookModel: event.uploadBookModel);
+
+      if (response.isSuccess) {
+        yield UploadBookAddedState(status: response);
+      } else {
+        yield UploadBookErrorState(errorMessage: response.message);
+      }
+    }
+  }
 }

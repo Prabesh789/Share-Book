@@ -1,14 +1,14 @@
 import 'dart:io';
 
 class UploadBookModel {
-  File bookImage;
-  String bookTitle;
-  String publishedDate;
-  String selectedBookType;
-  String shareType;
-  String bookDescription;
-  String amount;
-  String uploadedBy;
+  final File bookImage;
+  final String bookTitle;
+  final String publishedDate;
+  final String selectedBookType;
+  final String shareType;
+  final String bookDescription;
+  final String amount;
+  final String uploadedBy;
   UploadBookModel({
     this.bookImage,
     this.bookTitle,

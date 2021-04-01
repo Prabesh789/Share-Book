@@ -137,7 +137,7 @@ class _UserMainDashboardState extends State<UserMainDashboard> {
                       ..setEntry(0, 3, 200 * val)
                       ..rotateY(
                           (pi / 6) * val), //this allow to transform the screen
-                    child: MainDashboard(userId: null),
+                    child: MainDashboard(userId: uid),
                   ));
                 },
               ),

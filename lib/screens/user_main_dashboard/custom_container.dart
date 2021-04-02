@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 
 class CustomContainer extends StatefulWidget {
   final String bookType;
-  final IconData icon; //if datatype is widget then, j ne pass grna milxa
+  //final IconData icon;
+  //if datatype is widget then, j ne pass grna milxa
+  // final Widget widget;
 
-  const CustomContainer({Key key, @required this.bookType, @required this.icon})
-      : super(key: key);
+  const CustomContainer({
+    Key key,
+    @required this.bookType,
+    // @required this.icon,
+    // @required this.widget
+  }) : super(key: key);
   @override
   _CustomContainerState createState() => _CustomContainerState();
 }
@@ -36,23 +42,28 @@ class _CustomContainerState extends State<CustomContainer> {
           children: [
             ListView(
               scrollDirection: Axis.horizontal,
-              children: <Widget>[Container()],
+              children: <Widget>[],
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: SizedBox(
-                  width: size.width / 2,
+                  width: size.width,
                   height: size.height / 20,
                   child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.teal[200],
+                    ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           "${widget.bookType}",
                           style: TextStyle(fontSize: 18),
                         ),
-                        Icon(widget.icon)
+                        //Icon(widget.icon)
                       ],
                     ),
                   ),

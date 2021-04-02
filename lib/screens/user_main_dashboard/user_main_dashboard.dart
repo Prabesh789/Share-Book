@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sharebook/screens/login_screen/login_page.dart';
 import 'package:sharebook/screens/upload_books/upload_books.dart';
 import 'package:sharebook/screens/user_homepage/user_home_page.dart';
@@ -211,28 +212,36 @@ class _MainDashboardState extends State<MainDashboard> {
           child: Column(
             children: <Widget>[
               CustomContainer(
+                // widget: Container(
+                //   color: Colors.red,
+                // ),
                 bookType: "Story",
-                icon: null,
+                // icon: MdiIcons.diamond,
               ),
               CustomContainer(
+                // widget: Container(),
                 bookType: "Novels",
-                icon: null,
+                // icon: MdiIcons.diamond,
               ),
               CustomContainer(
+                // widget: Container(),
                 bookType: "College Books",
-                icon: null,
+                // icon: MdiIcons.diamond,
               ),
               CustomContainer(
+                // widget: Container(),
                 bookType: "Research Papers",
-                icon: null,
+                // icon: MdiIcons.diamond,
               ),
               CustomContainer(
+                // widget: Container(),
                 bookType: "Encyclopedia",
-                icon: null,
+                // icon: MdiIcons.diamond,
               ),
               CustomContainer(
+                // widget: Container(),
                 bookType: "Others",
-                icon: null,
+                // icon: MdiIcons.bookAccount,
               ),
             ],
           ),

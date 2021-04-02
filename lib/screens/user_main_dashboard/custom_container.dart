@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomContainer extends StatefulWidget {
   final String bookType;
+  final IconData icon; //if datatype is widget then, j ne pass grna milxa
 
-  const CustomContainer({Key key, @required this.bookType}) : super(key: key);
+  const CustomContainer({Key key, @required this.bookType, @required this.icon})
+      : super(key: key);
   @override
   _CustomContainerState createState() => _CustomContainerState();
 }
@@ -44,9 +46,14 @@ class _CustomContainerState extends State<CustomContainer> {
                   width: size.width / 2,
                   height: size.height / 20,
                   child: Container(
-                    child: Text(
-                      "${widget.bookType}",
-                      style: TextStyle(fontSize: 18),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "${widget.bookType}",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Icon(widget.icon)
+                      ],
                     ),
                   ),
                 ),

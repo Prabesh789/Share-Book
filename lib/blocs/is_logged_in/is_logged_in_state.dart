@@ -9,28 +9,28 @@ abstract class IsLoggedInState extends Equatable {
 
 class IsLoggedInInitial extends IsLoggedInState {}
 
-class AuthLoadingState extends IsLoggedInState {
+class IsLoggedInLoadingState extends IsLoggedInState {
   @override
   List<Object> get props => [];
 }
 
-class AuthenticatedState extends IsLoggedInState {
+class IsLoggedInAuthenticatedState extends IsLoggedInState {
   final Status status;
 
-  AuthenticatedState({this.status});
+  IsLoggedInAuthenticatedState({this.status});
   @override
   List<Object> get props => [status];
 }
 
-class UnAuthenticatedState extends IsLoggedInState {
+class IsLoggedInUnAuthenticatedState extends IsLoggedInState {
   @override
   List<Object> get props => [];
 }
 
-class AuthErrorState extends IsLoggedInState {
+class IsLoggedInErrorState extends IsLoggedInState {
   final String errorMessage;
 
-  AuthErrorState({this.errorMessage});
+  IsLoggedInErrorState({this.errorMessage});
   @override
   List<Object> get props => [errorMessage];
 }

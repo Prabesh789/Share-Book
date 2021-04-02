@@ -210,12 +210,30 @@ class _MainDashboardState extends State<MainDashboard> {
         child: Center(
           child: Column(
             children: <Widget>[
-              CustomContainer(bookType: "Story"),
-              CustomContainer(bookType: "Novels"),
-              CustomContainer(bookType: "College Books"),
-              CustomContainer(bookType: "Research Papers"),
-              CustomContainer(bookType: "Encyclopedia"),
-              CustomContainer(bookType: "Others"),
+              CustomContainer(
+                bookType: "Story",
+                icon: null,
+              ),
+              CustomContainer(
+                bookType: "Novels",
+                icon: null,
+              ),
+              CustomContainer(
+                bookType: "College Books",
+                icon: null,
+              ),
+              CustomContainer(
+                bookType: "Research Papers",
+                icon: null,
+              ),
+              CustomContainer(
+                bookType: "Encyclopedia",
+                icon: null,
+              ),
+              CustomContainer(
+                bookType: "Others",
+                icon: null,
+              ),
             ],
           ),
         ),

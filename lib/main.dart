@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocConsumer<AuthBloc, AuthState>(
+        cubit: inject<AuthBloc>(),
         listener: (context, state) {},
         builder: (context, state) {
           if (state is AuthenticatedState) {

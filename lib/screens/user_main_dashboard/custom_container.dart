@@ -4,14 +4,14 @@ class CustomContainer extends StatefulWidget {
   final String bookType;
   //final IconData icon;
   //if datatype is widget then, j ne pass grna milxa
-  // final Widget widget;
+  final Widget container;
 
-  const CustomContainer({
-    Key key,
-    @required this.bookType,
-    // @required this.icon,
-    // @required this.widget
-  }) : super(key: key);
+  const CustomContainer(
+      {Key key,
+      @required this.bookType,
+      // @required this.icon,
+      @required this.container})
+      : super(key: key);
   @override
   _CustomContainerState createState() => _CustomContainerState();
 }
@@ -42,7 +42,7 @@ class _CustomContainerState extends State<CustomContainer> {
           children: [
             ListView(
               scrollDirection: Axis.horizontal,
-              children: <Widget>[],
+              children: <Widget>[widget.container],
             ),
             Padding(
               padding: const EdgeInsets.all(4.0),

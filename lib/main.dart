@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharebook/blocs/auth/auth_bloc.dart';
 import 'package:sharebook/global/componenets/const.dart';
 import 'package:sharebook/screens/login_screen/login_page.dart';
-import 'package:sharebook/screens/user_main_dashboard/user_main_dashboard.dart';
+// import 'package:sharebook/screens/user_main_dashboard/user_main_dashboard.dart';
 import 'package:sharebook/utils/di.dart';
 import 'package:sharebook/utils/init.dart';
+
+import 'screens/main_dashboard/main_dashboard.dart';
 
 void main() async {
   await AppInit.initialize();
@@ -40,7 +42,9 @@ class _MyAppState extends State<MyApp> {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is AuthenticatedState) {
-            return UserMainDashboard();
+            return MainDashboard(
+              userId: null,
+            );
           } else if (state is UnAuthenticatedState) {
             return LoginPage();
           } else

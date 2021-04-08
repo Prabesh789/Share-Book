@@ -211,37 +211,43 @@ class _MainDashboardState extends State<MainDashboard> {
         child: Center(
           child: Column(
             children: <Widget>[
-              CustomContainer(container: Container(),
+              CustomContainer(
+                container: Container(),
                 // widget: Container(
                 //   color: Colors.red,
                 // ),
                 bookType: "Story",
-                // icon: MdiIcons.diamond,
+                icon: MdiIcons.menu,
               ),
-              CustomContainer(container: Container(),
+              CustomContainer(
+                container: Container(),
                 // widget: Container(),
                 bookType: "Novels",
-                // icon: MdiIcons.diamond,
+                icon: MdiIcons.menu,
               ),
-              CustomContainer(container: Container(),
+              CustomContainer(
+                container: Container(),
                 // widget: Container(),
                 bookType: "College Books",
-                // icon: MdiIcons.diamond,
+                icon: MdiIcons.menu,
               ),
-              CustomContainer(container: Container(),
+              CustomContainer(
+                container: Container(),
                 // widget: Container(),
                 bookType: "Research Papers",
-                // icon: MdiIcons.diamond,
+                icon: MdiIcons.menu,
               ),
-              CustomContainer(container: Container(),
+              CustomContainer(
+                container: Container(),
                 // widget: Container(),
                 bookType: "Encyclopedia",
-                // icon: MdiIcons.diamond,
+                icon: MdiIcons.menu,
               ),
-              CustomContainer(container: Container(),
+              CustomContainer(
+                container: Container(),
                 // widget: Container(),
                 bookType: "Others",
-                // icon: MdiIcons.bookAccount,
+                icon: MdiIcons.menu,
               ),
             ],
           ),

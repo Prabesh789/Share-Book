@@ -4,10 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sharebook/blocs/auth/auth_bloc.dart';
 import 'package:sharebook/data/model/user_model.dart';
 import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/screens/main_dashboard/main_dashboard.dart';
 // import 'package:sharebook/screens/main_dashboard/drawer/user_drawer.dart';
 // import 'package:sharebook/screens/main_dashboard/drawer/user_main_dashboard.dart';
 import 'package:sharebook/screens/register/register_page.dart';
-import 'package:sharebook/screens/user_main_dashboard/user_main_dashboard.dart';
 import 'package:sharebook/utils/di.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -36,7 +36,12 @@ class _LoginPageState extends State<LoginPage> {
           userEmailController.clear();
           passwordController.clear();
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => UserMainDashboard()));
+            MaterialPageRoute(
+              builder: (context) => MainDashboard(
+                userId: null,
+              ),
+            ),
+          );
         }
         if (state is AuthErrorState) {
           Fluttertoast.showToast(

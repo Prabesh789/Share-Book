@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sharebook/screens/main_dashboard/custom_container.dart';
 import 'package:sharebook/screens/main_dashboard/my_widget.dart';
 import 'package:sharebook/screens/main_dashboard/nav_bar.dart';
 import 'package:sharebook/screens/upload_books/upload_books.dart';
@@ -12,6 +13,16 @@ class MainDashboard extends StatefulWidget {
 }
 
 class _MainDashboardState extends State<MainDashboard> {
+  List<String> categories = [
+    'Stories',
+    'Novels',
+    'College Books',
+    'Research Papers',
+    'Encyclopedia',
+    'Others'
+  ];
+  String categoryType;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,67 +57,36 @@ class _MainDashboardState extends State<MainDashboard> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: Container(
+        height: size.height,
+        width: size.width,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 12, right: 20, top: 10),
-              child: Container(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      MyWidget(
-                        textColor: Colors.white,
-                        height: size.height / 21,
-                        width: size.width / 4,
-                        title: "Story Books",
-                        backgroundColor: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      MyWidget(
-                        textColor: Colors.white,
-                        height: size.height / 21,
-                        width: size.width / 3 - 10,
-                        title: "Nobel Books",
-                        backgroundColor: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      MyWidget(
-                        textColor: Colors.white,
-                        height: size.height / 21,
-                        width: size.width / 3 - 20,
-                        title: "Encyclopedia",
-                        backgroundColor: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      MyWidget(
-                        textColor: Colors.white,
-                        height: size.height / 21,
-                        width: size.width / 3,
-                        title: "College Books",
-                        backgroundColor: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      MyWidget(
-                        textColor: Colors.white,
-                        height: size.height / 21,
-                        width: size.width / 3,
-                        title: "Research Papers",
-                        backgroundColor: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      MyWidget(
-                        textColor: Colors.white,
-                        height: size.height / 21,
-                        width: size.width / 4,
-                        title: "Others",
-                        backgroundColor: Colors.white,
-                      )
-                    ],
-                  ),
-                ),
+            Container(
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  return MyWidget(
+                    pressed: () {
+                      setState(() {
+                        categoryType = categories[index];
+                      });
+                    },
+                    toggle: false,
+                    textColor: Colors.white,
+                    height: size.height / 21,
+                    width: size.width / 4,
+                    title: categories[index],
+                    // backgroundColor: Colors.white,
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              child: CustomContainer(
+                bookType: categoryType ?? categories[0],
               ),
             ),
           ],

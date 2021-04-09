@@ -60,7 +60,7 @@ class _NavBarState extends State<NavBar> {
                         children: [
                           CircleAvatar(
                             radius: 50,
-                            backgroundColor: Colors.white,
+                            backgroundColor: Colors.teal[50],
                             backgroundImage: CachedNetworkImageProvider(
                                 snapshot.data['image']),
                           ),

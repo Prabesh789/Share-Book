@@ -88,7 +88,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     "Book Title: ",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                   Text(
@@ -97,7 +97,7 @@ class _CustomContainerState extends State<CustomContainer> {
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],

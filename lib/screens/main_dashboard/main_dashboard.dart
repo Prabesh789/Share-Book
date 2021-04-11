@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sharebook/screens/main_dashboard/custom_container.dart';
 import 'package:sharebook/screens/main_dashboard/my_widget.dart';
 import 'package:sharebook/screens/main_dashboard/nav_bar.dart';
@@ -22,6 +23,11 @@ class _MainDashboardState extends State<MainDashboard> {
     'Others'
   ];
   String categoryType;
+  RefreshController refreshController = RefreshController();
+  onRefresh() {
+    refreshController.requestRefresh();
+    refreshController.refreshCompleted();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -14,6 +14,14 @@ class MainDashboard extends StatefulWidget {
 }
 
 class _MainDashboardState extends State<MainDashboard> {
+  List<bool> isSelected = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
   List<String> categories = [
     'Stories',
     'Novels',
@@ -23,11 +31,11 @@ class _MainDashboardState extends State<MainDashboard> {
     'Others'
   ];
   String categoryType;
-  RefreshController refreshController = RefreshController();
-  onRefresh() {
-    refreshController.requestRefresh();
-    refreshController.refreshCompleted();
-  }
+  // RefreshController refreshController = RefreshController();
+  // onRefresh() {
+  //   refreshController.requestRefresh();
+  //   refreshController.refreshCompleted();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +76,42 @@ class _MainDashboardState extends State<MainDashboard> {
         width: size.width,
         child: Column(
           children: [
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(4),
+            //     child: ToggleButtons(
+            //       isSelected: isSelected,
+            //       fillColor: Colors.teal[200],
+            //       selectedColor: Colors.black,
+            //       renderBorder: true,
+            //       color: Colors.black,
+            //       children: categories.map((e) {
+            //         return Padding(
+            //           padding: const EdgeInsets.all(8.0),
+            //           child: Text(e),
+            //         );
+            //       }).toList(),
+            //       onPressed: (int newIndex) {
+            //         setState(
+            //           () {
+            //             for (int index = 0;
+            //                 index < isSelected.length;
+            //                 index++) {
+            //               if (index == newIndex) {
+            //                 isSelected[index] = true;
+
+            //                 categoryType = categories[index];
+            //               } else {
+            //                 isSelected[index] = false;
+            //               }
+            //             }
+            //           },
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
             Container(
               height: 50,
               child: ListView.builder(
@@ -81,11 +125,10 @@ class _MainDashboardState extends State<MainDashboard> {
                       });
                     },
                     toggle: false,
-                    textColor: Colors.white,
+                    // textColor: Colors.white,
                     height: size.height / 21,
                     width: size.width / 4,
                     title: categories[index],
-                    // backgroundColor: Colors.white,
                   );
                 },
               ),

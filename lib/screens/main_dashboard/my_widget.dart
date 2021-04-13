@@ -5,27 +5,24 @@ class MyWidget extends StatefulWidget {
   final double height;
   final double width;
   final String title;
-  // final Color backgroundColor;
-  final Color textColor;
+
   final VoidCallback pressed;
 
-  const MyWidget(
-      {Key key,
-      @required this.height,
-      @required this.pressed,
-      @required this.toggle,
-      @required this.width,
-      @required this.title,
-      // @required this.backgroundColor,
-      @required this.textColor})
-      : super(key: key);
+  const MyWidget({
+    Key key,
+    @required this.height,
+    @required this.pressed,
+    @required this.toggle,
+    @required this.width,
+    @required this.title,
+  }) : super(key: key);
 
   @override
   _MyWidgetState createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<MyWidget> {
-  bool toggled = false;
+  bool toggled = true;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -29,6 +29,10 @@ class _CustomContainerState extends State<CustomContainer> {
           return Center(
             child: Text("loading"),
           );
+        } else if (snapshots.data.documents.length <= 0) {
+          return Center(
+            child: Text("No books are avaiable....!"),
+          );
         } else {
           return ListView.builder(
             itemCount: snapshots.data.documents.length,

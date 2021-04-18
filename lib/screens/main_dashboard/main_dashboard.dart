@@ -43,7 +43,7 @@ class _MainDashboardState extends State<MainDashboard> {
     return Scaffold(
       drawer: NavBar(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.teal[300]),
+        iconTheme: IconThemeData(color: Colors.black),
         // leading: Image.asset("assets/images/birdSwipe.gif"),
         backgroundColor: Colors.white,
         centerTitle: true,

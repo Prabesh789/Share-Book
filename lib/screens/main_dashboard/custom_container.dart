@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/screens/main_dashboard/on_tapped_book_description.dart';
 
 class CustomContainer extends StatefulWidget {
   final String bookType;
@@ -54,96 +55,105 @@ class _CustomContainerState extends State<CustomContainer> {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: size.height / 3.4,
-                      width: size.width,
-                      child: CachedNetworkImage(
-                        imageUrl: snapshots.data.docs[index]['bookImage'],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(kDefaultPadding / 2),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => OnTappedBookDescription(
+                              docId: snapshots.data.docs[index].documentID,
+                            )));
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: size.height / 3.4,
+                        width: size.width,
+                        child: CachedNetworkImage(
+                          imageUrl: snapshots.data.docs[index]['bookImage'],
+                          fit: BoxFit.cover,
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 10),
-                            blurRadius: 50,
-                            color: kPrimaryColor.withOpacity(0.10),
-                          ),
-                        ],
                       ),
-                      child: Row(
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "Book Title: ",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  Text(
-                                    snapshots.data.docs[index]['bookTitle']
-                                        .toUpperCase(),
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Published Date: ",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Text(
-                                    snapshots.data.docs[index]['publishedDate'],
-                                    style: TextStyle(
-                                      color: Colors.teal[700],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                      Container(
+                        padding: EdgeInsets.all(kDefaultPadding / 2),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
                           ),
-                          Spacer(),
-                          Column(
-                            children: [
-                              Text(
-                                snapshots.data.docs[index]['shareType'],
-                                style: TextStyle(color: Colors.black),
-                              ),
-                              Text(
-                                snapshots.data.docs[index]['amount'],
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 10),
+                              blurRadius: 50,
+                              color: kPrimaryColor.withOpacity(0.10),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Book Title: ",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshots.data.docs[index]['bookTitle']
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Published Date: ",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshots.data.docs[index]
+                                          ['publishedDate'],
+                                      style: TextStyle(
+                                        color: Colors.teal[700],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Column(
+                              children: [
+                                Text(
+                                  snapshots.data.docs[index]['shareType'],
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                Text(
+                                  snapshots.data.docs[index]['amount'],
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             },

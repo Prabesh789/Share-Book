@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, state) {
           if (state is AuthenticatedState) {
             return MainDashboard(
-              userId: null,
+              userId: state.status.data,
             );
           } else if (state is UnAuthenticatedState) {
             return LoginPage();

@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => MainDashboard(
-                userId: null,
+                userId: state.status.data,
               ),
             ),
           );

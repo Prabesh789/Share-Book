@@ -7,32 +7,37 @@ import 'package:sharebook/screens/user_homepage/user_home_page.dart';
 import 'package:sharebook/screens/user_profile/user_profile.dart';
 
 class NavBar extends StatefulWidget {
+  final String userId;
+
+  const NavBar({Key key, this.userId}) : super(key: key);
   @override
   _NavBarState createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
   double value = 0;
-  String uid;
+  // String uid;
 
-  @override
-  void initState() {
-    FirebaseAuth.instance.authStateChanges().listen((User user) async {
-      if (user != null) {
-        setState(() {
-          uid = user.uid;
-        });
-      }
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   FirebaseAuth.instance.authStateChanges().listen((User user) async {
+  //     if (user != null) {
+  //       setState(() {
+  //         uid = user.uid;
+  //       });
+  //     }
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: StreamBuilder(
-        stream:
-            FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.userId)
+            .snapshots(),
         builder: (context, snapshot) {
           print(snapshot);
           if (!snapshot.hasData) {
@@ -87,10 +92,12 @@ class _NavBarState extends State<NavBar> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UserHomePage()));
+                            builder: (context) => UserHomePage(
+                                  userId: widget.userId,
+                                )));
                   },
                   leading: Icon(Icons.home),
-                  title: Text('Home'),
+                  title: Text('My Books'),
                 ),
                 ListTile(
                   onTap: () {

@@ -41,7 +41,7 @@ class _MainDashboardState extends State<MainDashboard> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: NavBar(),
+      drawer: NavBar(userId: widget.userId),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         // leading: Image.asset("assets/images/birdSwipe.gif"),

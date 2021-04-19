@@ -31,57 +31,52 @@ class _OnTappedBookDescriptionState extends State<OnTappedBookDescription> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Container(
-          height: size.height / 1.5,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 10),
-                blurRadius: 50,
-                color: kPrimaryColor.withOpacity(0.28),
-              ),
-            ],
+      body: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
           ),
-          child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("books")
-                .doc(widget.docId)
-                .snapshots(),
-            builder: (context, snapshots) {
-              if (snapshots.data == null) {
-                return CircularProgressIndicator(
-                  backgroundColor: Colors.teal[200],
-                );
-              } else {
-                final data = snapshots.data;
-                final userId = data['uploadedBy'];
-                return StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(userId)
-                      .snapshots(),
-                  builder: (context, ds) {
-                    if (ds.data == null) {
-                      return Container();
-                    } else {
-                      return Padding(
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              blurRadius: 50,
+              color: kPrimaryColor.withOpacity(0.28),
+            ),
+          ],
+        ),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection("books")
+              .doc(widget.docId)
+              .snapshots(),
+          builder: (context, snapshots) {
+            if (snapshots.data == null) {
+              return CircularProgressIndicator(
+                backgroundColor: Colors.teal[200],
+              );
+            } else {
+              final data = snapshots.data;
+              final userId = data['uploadedBy'];
+              return StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(userId)
+                    .snapshots(),
+                builder: (context, ds) {
+                  if (ds.data == null) {
+                    return Container();
+                  } else {
+                    return SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Container(
-                                  width: size.width,
-                                  child: CachedNetworkImage(
-                                      imageUrl: data['bookImage'])),
-                            ),
+                            CachedNetworkImage(imageUrl: data['bookImage']),
                             Divider(thickness: 1),
                             Text(
                               "Uploaded By : ${ds.data['fullName']}"
@@ -148,20 +143,18 @@ class _OnTappedBookDescriptionState extends State<OnTappedBookDescription> {
                               ],
                             ),
                             Divider(thickness: 1),
-                            Row(
+                            ExpansionTile(
+                              title: Text(
+                                "Description: ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ),
+                              ),
                               children: [
                                 Text(
-                                  "Description: ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
                                   "${data['bookDescription']}",
-                                  softWrap: true,
-                                  textDirection: TextDirection.ltr,
-                                  maxLines: 5,
+                                  textAlign: TextAlign.justify,
                                 ),
                               ],
                             ),
@@ -180,13 +173,13 @@ class _OnTappedBookDescriptionState extends State<OnTappedBookDescription> {
                             ),
                           ],
                         ),
-                      );
-                    }
-                  },
-                );
-              }
-            },
-          ),
+                      ),
+                    );
+                  }
+                },
+              );
+            }
+          },
         ),
       ),
     );

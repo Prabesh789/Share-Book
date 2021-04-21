@@ -66,6 +66,7 @@ class UserRepository {
                     'contact': userModel.contact,
                     'email': userModel.email,
                     'password': userModel.password,
+                    'admin': false,
                   },
                 );
                 //after register it will directly login so we haveto signout

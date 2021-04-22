@@ -94,7 +94,7 @@ class UserRepository {
       ))
           .user;
       if (user.uid != null) {
-        return Status(message: 'Success', isSuccess: true, data: user);
+        return Status(message: 'Success', isSuccess: true, data: user.uid);
       } else {
         return Status(message: 'Could not Login', isSuccess: false, data: null);
       }

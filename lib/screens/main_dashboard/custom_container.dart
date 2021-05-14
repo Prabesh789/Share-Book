@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/global/app_colors.dart';
+
 import 'package:sharebook/screens/main_dashboard/on_tapped_book_description.dart';
 
 class CustomContainer extends StatefulWidget {

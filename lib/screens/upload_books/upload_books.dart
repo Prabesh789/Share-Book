@@ -6,8 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sharebook/blocs/upload_book/upload_book_bloc.dart';
 import 'package:sharebook/data/model/upload_book_model.dart';
-import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/global/app_colors.dart';
+
 import 'package:intl/intl.dart';
+import 'package:sharebook/global/app_strings.dart';
 import 'package:sharebook/utils/di.dart';
 
 class UploadBook extends StatefulWidget {
@@ -118,7 +120,7 @@ class _UploadBookState extends State<UploadBook> {
                 centerTitle: true,
                 backgroundColor: Colors.white,
                 title: Text(
-                  'Upload book Status',
+                  AppTexts.uploadBookStatus,
                   style: TextStyle(color: Colors.black),
                 ),
               ),

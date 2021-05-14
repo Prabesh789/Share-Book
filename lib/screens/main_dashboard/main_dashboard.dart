@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:sharebook/global/app_strings.dart';
 import 'package:sharebook/screens/main_dashboard/custom_container.dart';
 import 'package:sharebook/screens/main_dashboard/my_widget.dart';
 import 'package:sharebook/screens/main_dashboard/nav_bar.dart';
@@ -48,7 +48,7 @@ class _MainDashboardState extends State<MainDashboard> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'Avaiable Books',
+          AppTexts.avaiablebooks,
           style: TextStyle(color: Colors.black),
         ),
         actions: [

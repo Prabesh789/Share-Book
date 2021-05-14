@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sharebook/blocs/register/register_bloc.dart';
 import 'package:sharebook/data/model/user_model.dart';
-import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/global/app_colors.dart';
 import 'package:sharebook/utils/di.dart';
 import 'package:validators/validators.dart' as validator;
 

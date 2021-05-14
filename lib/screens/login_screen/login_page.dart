@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sharebook/blocs/auth/auth_bloc.dart';
 import 'package:sharebook/data/model/user_model.dart';
-import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/global/app_colors.dart';
+import 'package:sharebook/global/app_strings.dart';
 import 'package:sharebook/screens/main_dashboard/main_dashboard.dart';
 import 'package:sharebook/screens/register/register_page.dart';
 import 'package:sharebook/utils/di.dart';
@@ -75,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "'' Books are a uniquely portable magic ''",
+                        AppTexts.bookQuotes,
                         style: TextStyle(
                           fontSize: 16,
                           fontStyle: FontStyle.italic,
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: <Widget>[
                             SizedBox(height: 10),
                             Text(
-                              "Please Login",
+                              AppTexts.pleaseLogin,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: kTextColor,

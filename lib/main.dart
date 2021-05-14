@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharebook/blocs/auth/auth_bloc.dart';
-import 'package:sharebook/global/componenets/const.dart';
+import 'package:sharebook/global/app_colors.dart';
+
 import 'package:sharebook/screens/login_screen/login_page.dart';
 // import 'package:sharebook/screens/user_main_dashboard/user_main_dashboard.dart';
 import 'package:sharebook/utils/di.dart';

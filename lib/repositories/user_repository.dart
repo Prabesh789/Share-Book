@@ -143,11 +143,5 @@ class UserRepository {
     } catch (e) {
       return Status(message: e.toString(), isSuccess: false, data: null);
     }
-
-    // try {
-    //   return Status(message: 'Success', isSuccess: true, data: null);
-    // } catch (e) {
-    //   return Status(message: e.toString(), isSuccess: false, data: null);
-    // }
   }
 }

@@ -11,7 +11,9 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   String uid;
-
+  bool isEdit = false; //To edit Bio
+  var focusNode = FocusNode(); //Enable focused for Bio field
+  TextEditingController contactcontroller = TextEditingController();
   @override
   void initState() {
     FirebaseAuth.instance.authStateChanges().listen((User user) async {
@@ -22,6 +24,13 @@ class _UserProfileState extends State<UserProfile> {
       }
     });
     super.initState();
+  }
+
+  void updateContact() async {
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(uid)
+        .update({'bio': contactcontroller.text.trim()});
   }
 
   @override

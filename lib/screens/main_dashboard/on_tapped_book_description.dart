@@ -19,7 +19,6 @@ class _OnTappedBookDescriptionState extends State<OnTappedBookDescription> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
